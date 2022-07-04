@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -36,4 +36,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //リレーションを設定
+
+    public function user(){
+        return $this->belongsTo('App\\Models\User');
+      }
+
+    public function products(){
+        return $this->hasMany('App\Models\Product');
+    }
+
+
 }
