@@ -27,10 +27,10 @@ class ProductController extends Controller
         $query = Product::query();
 
         if(!empty($company_id)) {
-            $query->where('company_id', $company_id)->get();
+            $query->where('company_id', $company_id);
         }
         if(!empty($keyword)) {
-            $query->where('product_name', 'LIKE', "%{$keyword}%")->get();
+            $query->where('product_name', 'LIKE', "%{$keyword}%");
         }
         $products = $query->where('user_id', \Auth::user() -> id) ->get();
         return view('products.index', [

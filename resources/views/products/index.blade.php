@@ -9,23 +9,30 @@
         <div class="col-md-8">
 
             <div>
-                <form action="{{ route('products.index') }}" method="GET">
-                    @csrf
-                    <input type="text" name="keyword" value="{{ $keyword }}">
+                <div>
+                    <label>
+                        商品名：
+                        <form action="{{ route('products.index') }}" method="GET">
+                            @csrf
+                            <input type="text" name="keyword" value="{{ $keyword }}">
+                    </label>
+                </div>
 
-                    <div>
-                        <label>
-                            <div>
-                                <select class="form-control" id="company-id" name="company_id">
-                                    @foreach ($companies as $company)
-                                    <option value="{{ $company->id }}" @if($company=='{{ $company->company_name }}' ) selected @endif>{{ $company->company_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </label>
-                    </div>
+                <div>
+                    <label>
+                        メーカー名：
+                        <div>
+                            <select class="form-control" id="company-id" name="company_id">
+                                <option value="">未選択</option>
+                                @foreach ($companies as $company)
+                                <option value="{{ $company->id }}" @if($company=='{{ $company->company_name }}' ) selected @endif>{{ $company->company_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </label>
+                </div>
 
-                    <input type="submit" value="検索">
+                <input type="submit" value="検索">
                 </form>
             </div>
 

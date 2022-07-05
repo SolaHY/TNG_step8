@@ -12,6 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/common.js') }}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -28,7 +29,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-               
+
 
                 <div class="nav-menu" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -50,7 +51,7 @@
                         @endif
                         @else
                         <li class="nav-item dropdown">
-                            
+
                             <a href="{{route('products.index')}}"> {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
@@ -74,12 +75,10 @@
         <main class="py-4">
             @yield('header')
 
-            {{-- エラーメッセージを出力 --}}
-            @foreach($errors->all() as $error)
-            <p class="error">{{ $error }}</p>
-            @endforeach
+           
 
             @yield('content')
+            
 
         </main>
     </div>

@@ -5,6 +5,10 @@
   <div class="row justify-content-center">
 
     <h1>商品情報編集</h1>
+    {{-- エラーメッセージを出力 --}}
+    @foreach($errors->all() as $error)
+    <p class="error">{{ $error }}</p>
+    @endforeach
 
     <div class="col-md-8">
       <form method="POST" action="{{ route('products.update', $product) }}" enctype="multipart/form-data">
