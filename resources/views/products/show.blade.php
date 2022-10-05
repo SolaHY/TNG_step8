@@ -76,7 +76,7 @@
                 </div>
             </div>
             <button type="submit" name="edit" value="edit"><a href="{{route('products.edit', $product)}}">編集</a></button>
-            <button type="submit" name="back" value="back"><a href="{{route('products.index', $product)}}">戻る</a></button>
+            <button type="submit" name="back" value="back" id="back">戻る</a></button>
 
         </div>
     </div>

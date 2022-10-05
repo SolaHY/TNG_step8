@@ -24,7 +24,11 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'keyword' => ['string'],
+            'keyword' => 'string',
+            'from_price' => 'integer',
+            'to_price' => 'integer',
+            'from_stock' => 'integer',
+            'to_stock' => 'integer',
             'product_name' => ['required','string', 'max:255'],
             'price' => ['required','integer',  'min:0'],
             'stock' => ['required','integer',  'min:0'],

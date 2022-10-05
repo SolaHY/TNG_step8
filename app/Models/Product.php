@@ -30,4 +30,9 @@ class Product extends Model
     public function user() {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function isSoldOut() {
+        return $this->hasMany ('App\Models\Sale')->count() >0 ;
+    }
+
 }

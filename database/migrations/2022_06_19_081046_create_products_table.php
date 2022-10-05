@@ -21,9 +21,9 @@ class CreateProductsTable extends Migration
             //$table->string('company_id');
             $table->unsignedBigInteger('company_id');
             $table->string('product_name');
-            $table->string('price');
-            $table->string('stock');
-            $table->string('comment');
+            $table->unsignedinteger('price');
+            $table->unsignedinteger('stock');
+            $table->text('comment');
             $table->string('img_path');
             $table->timestamps();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
