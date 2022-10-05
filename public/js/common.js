@@ -32,28 +32,12 @@ function ajaxSearch() {
    console.log(to_stock);
 
    $.ajax({
-      contentType: "application/json",
-   //  type: "get",
-       cache: false,
-   //  dataType: "json",
-      statusCode: {
-      422: function _(responseObject) {}
-    },
-      type: 'GET', // HTTPリクエストメソッドの指定
-      url: '/search', // 送信先URLの指定
-      // async: true, // 非同期通信フラグの指定
-      dataType: 'json', // 受信するデータタイプの指定
-      timeout: 10000, // タイムアウト時間の指定
-      data: {
-         // サーバーに送信したいデータを指定
-         // "keyword": keyword,
-         // "company_id": company_id,
-         // "from_price": from_price,
-         // "to_price": to_price,
-         // "from_stock": from_stock,
-         // "to_stock": to_stock,
-         "test": 'test'
-      }
+      type: 'GET',
+            url: '/search',
+            data: {
+                'test': 'test',
+            },
+            dataType: 'json'
    }).done(function (data) {
       // let html = '';
       // $.each(data, function (index, value) {
