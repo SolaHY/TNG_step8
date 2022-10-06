@@ -78,10 +78,10 @@ function ajaxSearch() {
       $('#products_area').append(html); //できあがったテンプレートを id=products_area の中に追加
       // });
 
-      // $(document).ready(function () {
-      //    $('#sort_table').tablesorter();
-      // });
-      // $("#sort_table").trigger("update");
+      $(document).ready(function () {
+         $('#sort_table').tablesorter();
+      });
+      $("#sort_table").trigger("update");
    }).fail(function () {
       // 通信が失敗したときの処理
       console.log('エラーです');
