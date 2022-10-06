@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-   
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -18,7 +18,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/common.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.ice.min.css" integrity="sha512-KNtKlElwWdbTLSi3E9U95sSnTqhnt12n7lEn1ap3sPB9oiFcIrKTUprR5E9KU2BjmqsRQWcEG5lRHWfvUIlHHA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+
 </head>
 
 <body>
@@ -74,21 +74,14 @@
         <main class="py-4">
             @yield('header')
 
-            {{-- エラーメッセージを出力 --}}
-    @foreach($errors->all() as $error)
-      <p class="error">{{ $error }}</p>
-    @endforeach
-
             @yield('content')
-            
-
         </main>
     </div>
-     <!-- Scripts -->
-     <script src="{{ asset('js/common.js') }}" defer></script>
+    <!-- Scripts -->
+    <script src="{{ asset('js/common.js') }}" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.min.js"></script>
-    
+
 </body>
 
 </html>

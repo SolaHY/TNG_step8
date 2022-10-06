@@ -31,53 +31,53 @@ class ProductController extends Controller
     //検索機能
     public function search(Request $request)
     {
-        Log::info('test');
+        Log::debug('test');
         // error_log(var_export($request->keyword, true), 3, "./debug.txt");
-        // //検索フォームに入力された値を取得
-        // $keyword = $request->input('keyword');
-        // $company_id = $request->input('company_id');
-        // $price = $request->input('price');
-        // $stock = $request->input('stock');
-        // $from_price = $request->input('from_price');
-        // $to_price = $request->input('to_price');
-        // $from_stock = $request->input('from_stock');
-        // $to_stock = $request->input('to_stock');
-       
-   
-        // $query = Product::query();
+        //検索フォームに入力された値を取得
+        $keyword = $request->input('keyword');
+        $company_id = $request->input('company_id');
+        $price = $request->input('price');
+        $stock = $request->input('stock');
+        $from_price = $request->input('from_price');
+        $to_price = $request->input('to_price');
+        $from_stock = $request->input('from_stock');
+        $to_stock = $request->input('to_stock');
 
-        // $query->join('companies', 'products.company_id', '=', 'companies.id')
-        //     ->select('products.*', 'companies.company_name');
 
-        // //メーカー検索
-        // if (!empty($company_id)) {
-        //     $query->where('company_id', $company_id);
-        // }
-        // //商品名検索
-        // if (!empty($keyword)) {
-        //     $query->where('product_name', 'LIKE', "%{$keyword}%");
-        // }
-        // //価格検索
-        // if (!empty($from_price)) {
-        //     $query->where('price', '>=', $from_price);
-        // }
+        $query = Product::query();
 
-        // if (!empty($to_price)) {
-        //     $query->where('price', '<=', $to_price);
-        // }
+        $query->join('companies', 'products.company_id', '=', 'companies.id')
+            ->select('products.*', 'companies.company_name');
 
-        // //在庫検索
-        // if (!empty($from_stock)) {
-        //     $query->where('stock', '>=', $from_stock);
-        // }
+        //メーカー検索
+        if (!empty($company_id)) {
+            $query->where('company_id', $company_id);
+        }
+        //商品名検索
+        if (!empty($keyword)) {
+            $query->where('product_name', 'LIKE', "%{$keyword}%");
+        }
+        //価格検索
+        if (!empty($from_price)) {
+            $query->where('price', '>=', $from_price);
+        }
 
-        // if (!empty($to_stock)) {
-        //     $query->where('stock', '<=', $to_stock);
-        // }
+        if (!empty($to_price)) {
+            $query->where('price', '<=', $to_price);
+        }
 
-        // $products = $query->where('user_id', \Auth::user()->id)->get();
+        //在庫検索
+        if (!empty($from_stock)) {
+            $query->where('stock', '>=', $from_stock);
+        }
 
-        // return  response()->json($products);
+        if (!empty($to_stock)) {
+            $query->where('stock', '<=', $to_stock);
+        }
+
+        $products = $query->where('user_id', \Auth::user()->id)->get();
+
+        return  response()->json($products);
     }
 
 
@@ -98,19 +98,21 @@ class ProductController extends Controller
         ]);
     }
 
-    
+
     // 商品追加処理
     public function store(ProductRequest $request, FileUploadService $service)
     {
         //画像投稿処理
-        $path = $service->saveImage($request->file('img_path'));
+        $file_name = $request->file('img_path')->getClientOriginalName();
+        $path = $request->img_path->storeAs('public/images', $file_name);
+        $save_path = str_replace('public/images/', '', $path);
         Product::create([
             'user_id' => \Auth::user()->id,
             'product_name' => $request->product_name,
             'comment' => $request->comment,
             'price' => $request->price,
             'stock' => $request->stock,
-            'img_path' => $path,
+            'img_path' => $save_path,
             'company_id' => $request->company_id,
         ]);
 
@@ -119,9 +121,9 @@ class ProductController extends Controller
 
 
     //商品詳細
-            public function show($id)
+    public function show($id)
     {
-        
+
         $product = Product::find($id);
         return view('products.show', [
             'product' => $product
