@@ -23,16 +23,16 @@ class ProductController extends Controller
     //商品一覧
     public function index(Request $request)
     {
+        $products = \DB::table('products')->get();
         return view('products.index', [
             'companies' => Company::all(),
+            'products' => $products
         ]);
     }
 
     //検索機能
     public function search(Request $request)
     {
-        Log::debug('test');
-        // error_log(var_export($request->keyword, true), 3, "./debug.txt");
         //検索フォームに入力された値を取得
         $keyword = $request->input('keyword');
         $company_id = $request->input('company_id');
@@ -42,7 +42,6 @@ class ProductController extends Controller
         $to_price = $request->input('to_price');
         $from_stock = $request->input('from_stock');
         $to_stock = $request->input('to_stock');
-
 
         $query = Product::query();
 
@@ -86,7 +85,8 @@ class ProductController extends Controller
     {
         $product = Product::find($request->id);
         $product->delete();
-        return;
+        session()->flash('success', '商品を削除しました');
+        return  response()->json($product);
     }
 
 
@@ -102,10 +102,15 @@ class ProductController extends Controller
     // 商品追加処理
     public function store(ProductRequest $request, FileUploadService $service)
     {
-        //画像投稿処理
-        $file_name = $request->file('img_path')->getClientOriginalName();
-        $path = $request->img_path->storeAs('public/images', $file_name);
-        $save_path = str_replace('public/images/', '', $path);
+        // //画像投稿処理
+        if (isset($img_path)) {
+            $file_name = $request->file('img_path')->getClientOriginalName();
+            $path = $request->img_path->storeAs('public/images', $file_name);
+            $save_path = str_replace('public/images/', '', $path);
+        } else {
+            $save_path = "";
+        }
+
         Product::create([
             'user_id' => \Auth::user()->id,
             'product_name' => $request->product_name,
@@ -123,7 +128,6 @@ class ProductController extends Controller
     //商品詳細
     public function show($id)
     {
-
         $product = Product::find($id);
         return view('products.show', [
             'product' => $product
@@ -149,12 +153,15 @@ class ProductController extends Controller
                 'id', 'product_name',  'company_name', 'price', 'stock', 'comment', 'img_path'
             ])
         );
-        $path = $service->saveImage($request->file('img_path'));
+
+        $file_name = $request->file('img_path')->getClientOriginalName();
+        $path = $request->img_path->storeAs('public/images', $file_name);
+        $save_path = str_replace('public/images/', '', $path);
         if ($product->img_path !== '') {
             \Storage::disk('public')->delete($product->img_path);
         }
         $product->update([
-            'img_path' => $path, // ファイル名を保存
+            'img_path' => $save_path, // ファイル名を保存
         ]);
         return redirect()->route('products.edit', $product);
     }

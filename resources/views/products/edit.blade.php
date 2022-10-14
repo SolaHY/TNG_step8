@@ -68,9 +68,9 @@
           <label>
             商品画像:
             @if($product->img_path !== '')
-            <img src="{{ asset('storage/' . $product->img_path) }}">
+            <img src="{{ asset('storage/images/' . $product->img_path) }}">
             @else
-            <img src="{{ asset('images/no_image.png') }}">
+            <img src="{{ asset('storage/images/no_image.png') }}">
             @endif
             <input type="file" name="img_path" value="{{$product->img_path}}">
           </label>

@@ -147,12 +147,13 @@ return [
 
     'attributes' => [
         'name' => '名前',
-      'comment' => 'コメント',
-      'stock' =>'在庫',
-      'price' =>'価格',
-      'img_path' =>'写真',
-      'email' =>'メールアドレス',
-      'password' =>'パスワード',
+        'comment' => 'コメント',
+        'stock' => '在庫',
+        'price' => '価格',
+        'img_path' => '写真',
+        'email' => 'メールアドレス',
+        'password' => 'パスワード',
+        'product_name' => '商品名'
     ],
 
 ];

@@ -1,8 +1,8 @@
 <?php
 
-
-use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+
 
 
 /*
@@ -46,6 +46,4 @@ Route::get('/products/{id}/edit', 'ProductController@edit')->name('products.edit
 Route::patch('/products/{id}', 'ProductController@update')->name('products.update');
 
 // 商品削除
-Route::post('/delete', 'ProductController@destroy')->name('products.delete');
-
-
+Route::post('/products/delete', 'ProductController@destroy')->name('products.delete');
